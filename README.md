@@ -4,13 +4,13 @@ AdSolution is a Plug and Play Admodule for Unity. It can be easily integrated in
 
 **Also Includes**
 
-*Ads with Placements
+* Ads with Placements
 
-*Virtual Currency
+* Virtual Currency
 
-*OnRewardReceived Event
+* OnRewardReceived Event
 
-*Get Keys from Code/Json File/Web
+* Get Keys from Code/Json File/Web
 
 ## Installation
 TBW
