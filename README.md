@@ -2,6 +2,13 @@
 # AdsSolution
 AdSolution is a Plug and Play Admodule for Unity. It can be easily integrated in any Unity project and its really easy to use. Multiple Ad Network for all mobile platforms(IOS, Android, Amazon, Windows) are already integrated and ready to run. Just enter your AdNetwork keys and enjoy.
 
+| Platform  | Ad Network           |
+| --------- |:-------------:|
+| IOS       | Fyber(UnityAds, Chartboost, Applovin, AdColony, Vungle), Smarto |
+| Android   | Fyber(UnityAds, Chartboost, Applovin, AdColony, Vungle), Smarto |
+| Amazon    | Amazon Ads, Smarto, Chartboost, Apploving, AdColony             |
+| Windows   | Windows Ads, Smarto                                             |
+
 **Also Includes**
 
 * Ads with Placements
