@@ -3,7 +3,21 @@ using System.Collections;
 
 namespace MS.Ads
 {
-    public class WindowsAdsController 
+    public class WindowsAdsController : IAds
     {
+        public void ShowVideoAd()
+        {
+            
+        }
+        
+        public void PreLoadVideoAd()
+        {
+            
+        }
+        
+        public bool IsVideoAdAvailable()
+        {
+            return false;
+        }
     }
 }

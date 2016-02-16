@@ -1,4 +1,5 @@
-﻿using FyberPlugin;
+﻿using UnityEngine;
+using FyberPlugin;
 
 namespace MS.Ads
 {
@@ -27,9 +28,9 @@ namespace MS.Ads
         #region Constructors        
         public FyberController()
         {
-            _settings = Fyber.With(k_appId)
-            .WithUserId(k_userId)
-            .WithSecurityToken(k_securityToken)
+            _settings = Fyber.With(AdKeys.FyberAppId)
+            // .WithUserId(AdKeys.FyberUserId)
+            .WithSecurityToken(AdKeys.FyberSecurityToken)
             .Start();
 
             // Ad availability
@@ -45,8 +46,9 @@ namespace MS.Ads
 
         public FyberController(string appId)
         {
-            _settings = Fyber.With(appId)
+            _settings = Fyber.With(appId)            
             .Start();
+            _settings.NotifyUserOnReward(false);
 
             // Ad availability
             FyberCallback.AdAvailable += OnAdAvailable;
@@ -116,7 +118,7 @@ namespace MS.Ads
         //Requests a RewardedVideo based on parameters
         public void RequestVideoAd()
         {
-
+            Debug.Log("RequestVideoAd _rewardedVideoAd: " + _rewardedVideoAd);
             VirtualCurrencyRequester virtualCurrencyRequester = VirtualCurrencyRequester.Create()
             // optional method chaining
             // .AddParameter("key", "value")
@@ -161,13 +163,15 @@ namespace MS.Ads
         private void OnNativeExceptionReceivedFromSDK(string message)
         {
             //handle exception
+            Debug.LogError("Native Exception from fyber: " + message);
         }
 
         // Checks Ad Availability and performs Action
         private void OnAdAvailable(Ad ad)
         {
+            Debug.Log("Ad-AVAILABLE");
             switch (ad.AdFormat)
-            {
+            {                
                 case AdFormat.REWARDED_VIDEO:
                     _rewardedVideoAd = ad;
                     _isVideoAdAvailable = true;
@@ -178,11 +182,12 @@ namespace MS.Ads
 
         private void OnAdNotAvailable(AdFormat adFormat)
         {
+            Debug.Log("Ad-NOTAVAILABLE");
             switch (adFormat)
             {
                 case AdFormat.REWARDED_VIDEO:
                     _rewardedVideoAd = null;
-                    _isVideoAdAvailable = false;
+                    _isVideoAdAvailable = false;                    
                     break;
                     //handle other ad formats if needed
             }
@@ -197,7 +202,7 @@ namespace MS.Ads
         private void OnAdStarted(Ad ad)
         {
             switch (ad.AdFormat)
-            {
+            {                
                 case AdFormat.REWARDED_VIDEO:
                     _rewardedVideoAd = null;
                     _isVideoAdAvailable = false;
@@ -207,13 +212,14 @@ namespace MS.Ads
         }
 
         private void OnAdFinished(AdResult result)
-        {
+        {            
             switch (result.AdFormat)
             {
 
                 case AdFormat.REWARDED_VIDEO:
                     UnityEngine.Debug.Log("rewarded video closed with result: " + result.Status +
                     "and message: " + result.Message);
+                    RequestVideoAd();
                     break;
                     //handle other ad formats if needed
             }

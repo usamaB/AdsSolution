@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using MS.Ads.Utility;
+using MS.Utility;
 
 namespace MS.Ads
 {

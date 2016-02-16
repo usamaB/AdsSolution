@@ -5,7 +5,7 @@ namespace MS.Ads
     {
         void ShowVideoAd();
         void PreLoadVideoAd();
-        void IsAdAvailable();
+        bool IsVideoAdAvailable();
         
     }
 }

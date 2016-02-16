@@ -8,11 +8,11 @@ namespace MS.Ads
         #region Fields & Properties
         [SerializeField]
         private KeysSource _keysSource;
-        [SerializeField]
-        [HideInInspector]
+        
+        [SerializeField][HideInInspector]
         private string _fileName;
-        [SerializeField]
-        [HideInInspector]
+        
+        [SerializeField][HideInInspector]
         private string _url;
         
         // Source from where to get keys
@@ -36,29 +36,33 @@ namespace MS.Ads
             set { _fileName = value; }
         }
         
-        // FactoryObject.
-        private FyberController _fyberController;
+        // FactoryObject.         
+        private IAds _platformAdFactory;
         #endregion
 
         #region Message Methods
         void Start()
         {            
             GetComponent<KeyGenerator>().GenerateKeys(Source, URL, FileName);
-            _fyberController = new FyberController();
-            _fyberController.RequestVideoAd();
+            _platformAdFactory = new PlatformFactoryProducer().CreateFactory(Application.platform);
         }
         #endregion
 
         #region Methods
-        public void ShowAd()
+        public void ShowVideoAd()
         {
-            if (_fyberController.IsVideoAdAvailable)
-                _fyberController.ShowVideoAd();
+            if (_platformAdFactory.IsVideoAdAvailable())
+                _platformAdFactory.ShowVideoAd();
+        }
+        
+        public void PreLoadVideoAd()
+        {
+            _platformAdFactory.PreLoadVideoAd();
         }
         
         public bool IsVideoAdAvailable()
         {
-            return _fyberController.IsVideoAdAvailable ? true : false;
+            return _platformAdFactory.IsVideoAdAvailable() ? true : false;
         }
         #endregion
     }
